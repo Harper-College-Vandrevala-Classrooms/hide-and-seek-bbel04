@@ -1,8 +1,60 @@
 package com.csc;
 
+import java.util.ArrayList;
+
 public class FuzzyFinder {
-  // Your code goes here!
+
+  //linear search algorithm
+  public int linearSearch(ArrayList<Fuzzy> fuzzies, String fuzzyToFind) {
+    for (int i = 0; i < fuzzies.size(); i++) {
+      if (fuzzies.get(i).color.equals(fuzzyToFind)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  //binary search algorithm
+  public int binarySearch(ArrayList<Fuzzy> fuzzies, String fuzzyToFind) {
+    int low = 0;
+    int high = fuzzies.size() - 1;
+
+    while (low <= high) {
+      int middlePosition = (low + high) / 2;
+      Fuzzy middleFuzzy = fuzzies.get(middlePosition);
+
+      int compare = fuzzyToFind.compareTo(middleFuzzy.color);
+
+      if (compare == 0) {   //compareTo returns 0 if equal; string is found in middle position
+        return middlePosition;
+      }
+      if (compare < 0) {    //compareTo returns value <0 if string is less than what it's compared to; string is before middle position
+        high = middlePosition - 1;
+      }
+      else {     //string is after middle position
+        low = middlePosition + 1;
+      }
+    }
+    return -1;
+  }
+
   public static void main(String args[]) {
-    System.out.println("In addition to your search functions, you can write a main function if you wish!");
+    FuzzyListGenerator generator = new FuzzyListGenerator();
+    FuzzyFinder finder = new FuzzyFinder();
+    
+    ArrayList<Fuzzy> sortedFuzzies = generator.sortedRainbowFuzzies();
+    ArrayList<Fuzzy> randomFuzzies = generator.randomizedRainbowFuzzies();
+
+    //manually test search algorithms
+    int testOne = finder.linearSearch(sortedFuzzies, "yellow");
+    int testTwo = finder.linearSearch(randomFuzzies, "blue");
+    int testThree = finder.binarySearch(sortedFuzzies, "yellow");
+    int testFour = finder.binarySearch(randomFuzzies, "blue");
+
+    //output results
+    System.out.println("Linear Search for Sorted Fuzzies: " + testOne);
+    System.out.println("Linear Search for Random Fuzzies: " + testTwo);
+    System.out.println("Binary Search for Sorted Fuzzies: " + testThree);
+    System.out.println("Binary Search for Random Fuzzies: " + testFour);
   }
 }
