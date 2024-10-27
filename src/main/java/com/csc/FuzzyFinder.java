@@ -46,10 +46,10 @@ public class FuzzyFinder {
     ArrayList<Fuzzy> randomFuzzies = generator.randomizedRainbowFuzzies();
 
     //manually test search algorithms
-    int testOne = finder.linearSearch(sortedFuzzies, "yellow");
-    int testTwo = finder.linearSearch(randomFuzzies, "blue");
-    int testThree = finder.binarySearch(sortedFuzzies, "yellow");
-    int testFour = finder.binarySearch(randomFuzzies, "blue");
+    int testOne = finder.linearSearch(sortedFuzzies, "gold");
+    int testTwo = finder.linearSearch(randomFuzzies, "gold");
+    int testThree = finder.binarySearch(sortedFuzzies, "gold");
+    int testFour = finder.binarySearch(randomFuzzies, "gold");
 
     //output results
     System.out.println("Linear Search for Sorted Fuzzies: " + testOne);
